@@ -16,7 +16,10 @@ module.exports = NodeHelper.create({
 
   webServiceURL: "http://webservices.nextbus.com/service/publicJSONFeed",
   agency: "ttc",
-
+/***********
+Add NTAS URL **********************/
+  SubServiceURL: "https://ntas.ttc.ca/api/ntas/get-next-train-time/",
+  
   start: function() {
     console.log("Starting node_helper for module: " + this.name);
   },
@@ -27,10 +30,15 @@ module.exports = NodeHelper.create({
       var self = this;
 
       var builtURL = this.webServiceURL + "?&command=predictionsForMultiStops&a=" + this.agency;
-
       var routes = payload.config.routeList;
       for (var i = 0; i < routes.length; i++) {
         builtURL += "&stops=" + routes[i].routeNo + "|" + routes[i].stop;
+      /***********
+      Add CALL AND NEW CONFIG? **********************/
+      var builtSub = this.subServiceURL + "?&command=predictionsForMultiStops&a=" ;
+      var station = payload.config.station;
+      for (var i = 0; i < stations.length; i++) {
+        builtSub + stations[i].station ;
       }
 
       // console.log("=============>" + builtURL);
